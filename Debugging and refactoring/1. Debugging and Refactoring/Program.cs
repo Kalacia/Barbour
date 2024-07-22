@@ -10,7 +10,7 @@ namespace BankingSystem
         {
             var accountManager = new AccountManager();
 
-            accountManager.ShowAccountInterface();
+            accountManager.ShowAccountInterfaceHome();
         }
 
         //static void DepositMoney()
