@@ -1,15 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DebuggingAndRefactoringTask1
 {
-    internal class AccountManager
+    public class AccountManager
     {
-        private readonly IAccountRepository _accountRepository;
+        private IAccountRepository _accountRepository;
 
         public AccountManager() : this(Startup.BuildContainer())
         {
@@ -40,7 +35,7 @@ namespace DebuggingAndRefactoringTask1
                 switch (choice)
                 {
                     case "1":
-                        //AddAccount();
+                        CreateAccount();
                         break;
                     case "2":
                         //DepositMoney();
@@ -58,6 +53,17 @@ namespace DebuggingAndRefactoringTask1
                         break;
                 }
             }
+        }
+
+        public void CreateAccount()
+        {
+            Console.WriteLine("Enter Account Holder Name:");
+            var name = Console.Read().ToString();
+
+            Account account = new Account(name, 0);
+            _accountRepository.InsertAccount(account);
+
+            Console.WriteLine("Account added successfully.");
         }
 
     }

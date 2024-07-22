@@ -2,16 +2,21 @@
 {
     public class AccountRepository : IAccountRepository
     {
-        List<Account> accounts = new List<Account>();
+        public List<Account> _accounts;
 
-        public IEnumerable<Account> GetAllAccounts() 
+        public AccountRepository()
         {
-             return accounts;
+            _accounts = new List<Account>();
+        }
+
+        public List<Account> GetAllAccounts() 
+        {
+             return _accounts;
         }
 
         public void InsertAccount(Account account)
         {
-            accounts.Add(account);
+            _accounts.Add(account);
         }
         
     }

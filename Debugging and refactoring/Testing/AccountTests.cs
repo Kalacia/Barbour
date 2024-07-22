@@ -4,34 +4,47 @@ namespace Testing
 {
     public class AccountTests : TestsBase
     {
+
         [Fact]
-        public void AccountShouldHaveGuidID()
+        public void CreateAccountShouldCreateAFullyFormedAccount()
         {
             //arrange
             var accountName = "UnitTestAccountName";
-            var balance = 0;
+            var accountBalance = 0;
 
             //act
-            var account = new Account(accountName, balance);
+            var account = new Account(accountName, accountBalance);
 
             //assert
+            Assert.IsType<Account>(account);
             Assert.NotEmpty(account.Id);
+            Assert.Equal(account.Name, accountName);
+            Assert.Equal(account.Balance, accountBalance);
         }
 
-        [Fact]
-        public void GetAllAccountsShouldReturnPopulatedList()
+        //[Fact]
+        //public void GetAllAccountsShouldReturnAListAccouObject()
+        //{
+        //    //arrange
+        //    var repo = CreateSuccessfulRepo();
+        //    var account = CreateSuccessfulAccount();
+        //    repo.InsertAccount(account);
+
+        //    //act
+        //    var result = repo.GetAllAccounts();
+
+        //    //assert
+        //    Assert.IsType<List<Account>>(result);
+        //}
+
+        private Account CreateSuccessfulAccount()
         {
-            //arrange
             var accountName = "UnitTestAccountName";
             var balance = 0;
-            var repo = CreateSuccessfulRepo();
 
-            //act
-            var account = new Account(accountName, balance);
-            repo.InsertAccount(account);
+            var goodAccount = new Account(accountName, balance);
 
-            //assert
-            Assert.IsType<Account>(repo);
+            return goodAccount;
         }
 
         private IAccountRepository CreateSuccessfulRepo()

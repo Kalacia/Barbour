@@ -13,20 +13,6 @@ namespace BankingSystem
             accountManager.ShowAccountInterface();
         }
 
-        //static void AddAccount()
-        //{
-        //    Console.WriteLine("Enter Account ID:");
-        //    var id = Console.ReadLine();
-
-        //    Console.WriteLine("Enter Account Holder Name:");
-        //    var name = Console.Read().ToString();
-
-        //    Account account = new Account (name, 0);
-        //    //accounts.InsertAccount(account);
-
-        //    Console.WriteLine("Account added successfully.");
-        //}
-
         //static void DepositMoney()
         //{
         //    Console.WriteLine("Enter Account ID:");
