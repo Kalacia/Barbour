@@ -6,9 +6,11 @@
         public string Name { get; set; }
         public double Balance { get; set; }
 
-        public Account()
+        public Account(string name, double balance)
         {
             Id = Guid.NewGuid().ToString();
+            Name = name;
+            Balance = balance;
         }
     }
 }

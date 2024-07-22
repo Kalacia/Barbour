@@ -49,7 +49,7 @@ namespace BankingSystem
             Console.WriteLine("Enter Account Holder Name:");
             var name = Console.Read().ToString();
 
-            Account account = new Account { Id = id, Name = name, Balance = 0 };
+            Account account = new Account (name, 0);
             accounts.Add(account);
 
             Console.WriteLine("Account added successfully.");
