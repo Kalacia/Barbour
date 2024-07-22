@@ -2,7 +2,7 @@ using DebuggingAndRefactoringTask1;
 
 namespace Testing
 {
-    public class AccountTests
+    public class AccountTests : TestsBase
     {
         [Fact]
         public void AccountShouldHaveGuidID()
@@ -15,24 +15,29 @@ namespace Testing
             var account = new Account(accountName, balance);
 
             //assert
-            Assert.NotEmpty(account.Id);            
+            Assert.NotEmpty(account.Id);
         }
 
         [Fact]
         public void GetAllAccountsShouldReturnPopulatedList()
         {
             //arrange
-            var accounts = new List<Account>();
             var accountName = "UnitTestAccountName";
             var balance = 0;
+            var repo = CreateSuccessfulRepo();
 
             //act
             var account = new Account(accountName, balance);
-
-            accounts.Add(account);
+            repo.InsertAccount(account);
 
             //assert
-            Assert.IsType<Account>(accounts[0]);
+            Assert.IsType<Account>(repo);
+        }
+
+        private IAccountRepository CreateSuccessfulRepo()
+        {
+            SetupSuccessfulMocks();
+            return MockServiceAccountRepository.Object;
         }
 
     }

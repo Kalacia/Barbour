@@ -8,5 +8,11 @@
         {
              return accounts;
         }
+
+        public void InsertAccount(Account account)
+        {
+            accounts.Add(account);
+        }
+        
     }
 }
