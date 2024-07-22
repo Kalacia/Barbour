@@ -1,9 +1,12 @@
 using DebuggingAndRefactoringTask1;
+using Moq;
 
 namespace Testing
 {
     public class AccountTests : TestsBase
     {
+
+        private IAccountRepository _accountRepository;
 
         [Fact]
         public void CreateAccountShouldCreateAFullyFormedAccount()
@@ -22,24 +25,23 @@ namespace Testing
             Assert.Equal(account.Balance, accountBalance);
         }
 
-        //[Fact]
-        //public void GetAllAccountsShouldReturnAListAccouObject()
-        //{
-        //    //arrange
-        //    var repo = CreateSuccessfulRepo();
-        //    var account = CreateSuccessfulAccount();
-        //    repo.InsertAccount(account);
-
-        //    //act
-        //    var result = repo.GetAllAccounts();
-
-        //    //assert
-        //    Assert.IsType<List<Account>>(result);
-        //}
-
-        private Account CreateSuccessfulAccount()
+        [Fact]
+        public void GetAllAccountsShouldReturnAListAccountObject()
         {
-            var accountName = "UnitTestAccountName";
+            //arrange
+            CreateWithSuccessfullMocks();
+            var repo = _accountRepository;
+
+            //act
+            var result = repo.GetAllAccounts();
+
+            //assert
+            Assert.IsType<List<Account>>(result);
+        }
+
+        private Account CreateSuccessfulAccount(string name = "UnitTestAccountName")
+        {
+            var accountName = name;
             var balance = 0;
 
             var goodAccount = new Account(accountName, balance);
@@ -47,11 +49,23 @@ namespace Testing
             return goodAccount;
         }
 
-        private IAccountRepository CreateSuccessfulRepo()
+        private void CreateWithSuccessfullMocks()
         {
-            SetupSuccessfulMocks();
-            return MockServiceAccountRepository.Object;
-        }
+            //setup list and accounts to be passed into moq service
+            List<Account> accounts = new List<Account>();
 
+            var account1 = CreateSuccessfulAccount("UnitTestAccountName1");
+            var account2 = CreateSuccessfulAccount("UnitTestAccountName2");
+            var account3 = CreateSuccessfulAccount("UnitTestAccountName3");
+
+            accounts.Add(account1);
+            accounts.Add(account2);
+            accounts.Add(account3);
+
+            //create moq services
+            SetupSuccessfulMocks(accounts);
+
+            _accountRepository = MockServiceAccountRepository.Object;
+        }
     }
 }

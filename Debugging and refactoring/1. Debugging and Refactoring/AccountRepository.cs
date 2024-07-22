@@ -2,7 +2,7 @@
 {
     public class AccountRepository : IAccountRepository
     {
-        public List<Account> _accounts;
+        private List<Account> _accounts;
 
         public AccountRepository()
         {
@@ -11,13 +11,12 @@
 
         public List<Account> GetAllAccounts() 
         {
-             return _accounts;
+            return _accounts;
         }
 
         public void InsertAccount(Account account)
         {
             _accounts.Add(account);
         }
-        
     }
 }
