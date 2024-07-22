@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DebuggingAndRefactoringTask1;
 
 namespace BankingSystem
 {
@@ -123,12 +122,5 @@ namespace BankingSystem
 
             Console.WriteLine("Account not found.");
         }
-    }
-
-    class Account
-    {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public double Balance { get; set; }
     }
 }
