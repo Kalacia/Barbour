@@ -1,4 +1,6 @@
-﻿namespace DebuggingAndRefactoringTask1
+﻿using System.Security.Principal;
+
+namespace DebuggingAndRefactoringTask1
 {
     public class Account
     {
@@ -6,11 +8,16 @@
         public string Name { get; set; }
         public double Balance { get; set; }
 
-        public Account(string name, double balance)
+        public Account(string id ,string name, double balance)
         {
-            Id = Guid.NewGuid().ToString();
+            Id = id;
             Name = name;
             Balance = balance;
+        }
+
+        public void MakeDeposit(double amount)
+        {
+            Balance += amount;
         }
     }
 }

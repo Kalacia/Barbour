@@ -12,11 +12,12 @@ namespace Testing
         public void CreateAccountShouldCreateAFullyFormedAccount()
         {
             //arrange
+            var id = "1";
             var accountName = "UnitTestAccountName";
             var accountBalance = 0;
 
             //act
-            var account = new Account(accountName, accountBalance);
+            var account = new Account(id,accountName, accountBalance);
 
             //assert
             Assert.IsType<Account>(account);
@@ -39,12 +40,26 @@ namespace Testing
             Assert.IsType<List<Account>>(result);
         }
 
-        private Account CreateSuccessfulAccount(string name = "UnitTestAccountName")
+        [Fact]
+        public void GetAccountByIdShouldReturnASingleResult()
+        {
+            //arrange
+            CreateWithSuccessfullMocks();
+
+            //act
+            var account = _accountRepository.GetAccountById("1");
+
+            //assert
+            Assert.IsType<Account>(account);
+            Assert.Equal("1", account.Id);
+        }
+
+        private Account CreateSuccessfulAccount(string id = "1" , string name = "UnitTestAccountName")
         {
             var accountName = name;
             var balance = 0;
 
-            var goodAccount = new Account(accountName, balance);
+            var goodAccount = new Account(id, accountName, balance);
 
             return goodAccount;
         }
@@ -54,9 +69,9 @@ namespace Testing
             //setup list and accounts to be passed into moq service
             List<Account> accounts = new List<Account>();
 
-            var account1 = CreateSuccessfulAccount("UnitTestAccountName1");
-            var account2 = CreateSuccessfulAccount("UnitTestAccountName2");
-            var account3 = CreateSuccessfulAccount("UnitTestAccountName3");
+            var account1 = CreateSuccessfulAccount("1","UnitTestAccountName1");
+            var account2 = CreateSuccessfulAccount("2","UnitTestAccountName2");
+            var account3 = CreateSuccessfulAccount("3","UnitTestAccountName3");
 
             accounts.Add(account1);
             accounts.Add(account2);
