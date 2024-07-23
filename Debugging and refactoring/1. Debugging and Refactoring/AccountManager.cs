@@ -32,6 +32,7 @@ namespace DebuggingAndRefactoringTask1
             keyCommands["4"] = () => DisplayAccountDetails();
             keyCommands["5"] = () => ViewTransactions();
             keyCommands["6"] = () => AccountTransfer();
+            keyCommands["7"] = () => Leave();
 
             Console.WriteLine("--[ Home ]--");
             Console.WriteLine("1. Add Account");
@@ -40,7 +41,7 @@ namespace DebuggingAndRefactoringTask1
             Console.WriteLine("4. Display Account Details");
             Console.WriteLine("5. View Account Transactions");
             Console.WriteLine("6. Account Transfer");
-            //Console.WriteLine("6. Exit");
+            Console.WriteLine("7. Exit");
             Console.WriteLine("-------------");
             Console.WriteLine();
 
@@ -217,6 +218,11 @@ namespace DebuggingAndRefactoringTask1
 
             ShowAccountInterfaceHome();
 
+        }
+
+        public void Leave()
+        {
+            Environment.Exit(0);
         }
     }
 }
