@@ -34,6 +34,20 @@ namespace UnitTests
             Assert.Equal("Dave Test", user.Name);
         }
 
+        [Fact]
+        public void UserUpdateNameShouldUpdateUsersName()
+        {
+            //arrange
+            CreateSuccessfulMoqs();
+
+            //act
+            var user = _userRepository.GetUserByName("Dave Test");
+            user.UpdateName("Jane Test");
+
+            //assert
+            Assert.Equal("Jane Test", user.Name);
+        }
+
         private void CreateSuccessfulMoqs()
         {
             //setup list to be passed into moq service
