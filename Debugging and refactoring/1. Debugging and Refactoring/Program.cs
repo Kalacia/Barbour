@@ -7,7 +7,7 @@ namespace BankingSystem
 
         static void Main(string[] args)
         {
-            var accountManager = new AccountManager();//moved code from here to another class, so i can do dependency injection, and not clutter Main.
+            var accountManager = new AccountManager();//moved code from original Main to here, so i can do dependency injection, and not clutter Main.
 
             accountManager.ShowAccountInterfaceHome();
         }

@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-namespace DebuggingAndRefactoringTask1
+﻿namespace DebuggingAndRefactoringTask1
 {
     public class Account
     {
