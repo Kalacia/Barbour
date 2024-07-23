@@ -6,5 +6,6 @@ namespace Library.Repositories
     {
         public void AddUser(UserViewModel user);
         public List<UserViewModel> GetAllUsers();
+        public UserViewModel GetUserByName(string usersName);
     }
 }
