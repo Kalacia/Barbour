@@ -18,28 +18,28 @@ namespace DebuggingAndRefactoringTask1
             Transactions = new List<Transaction>();
         }
 
-        public void MakeDeposit(double amount)
+        public void MakeDeposit(double amount, string eventType = "Deposit")
         {
             Balance += amount;
             Transaction transaction = new Transaction
             {
                 Date = DateTime.Now,
                 Value = amount,
-                Event = "Deposit",
+                Event = eventType,
                 Balance = Balance
             };
 
             Transactions.Add(transaction);
         }
 
-        public void MakeWithdrawal(double amount)
+        public void MakeWithdrawal(double amount, string eventType = "Withdrawal")
         {
             Balance -= amount;
             Transaction transaction = new Transaction
             {
                 Date = DateTime.Now,
                 Value = amount,
-                Event = "Withdrawal",
+                Event = eventType,
                 Balance = Balance
             };
 
