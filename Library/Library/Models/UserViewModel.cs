@@ -12,5 +12,10 @@
             Name = name;
             Active = active;
         }
+
+        public void UpdateName(string name)
+        {
+            Name = name.Trim();
+        }
     }
 }
