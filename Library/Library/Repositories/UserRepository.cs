@@ -20,11 +20,5 @@ namespace Library.Repositories
         {
             return Users;
         }
-
-        public UserViewModel GetUserByName(string usersName) 
-        {
-            UserViewModel user = Users.Find(x => x.Name == usersName);
-            return user;
-        }
     }
 }

@@ -20,37 +20,9 @@ namespace UnitTests
             Assert.IsType<UserViewModel>(repo[0]);
         }
 
-        [Fact]
-        public void GetUserByNameShouldReturnSingleResult()
-        {
-            //arrange
-            CreateSuccessfulMoqs();
-
-            //act
-            var user = _userRepository.GetUserByName("Dave Test");
-
-            //assert
-            Assert.IsType<UserViewModel>(user);
-            Assert.Equal("Dave Test", user.Name);
-        }
-
-        [Fact]
-        public void UserUpdateNameShouldUpdateUsersName()
-        {
-            //arrange
-            CreateSuccessfulMoqs();
-
-            //act
-            var user = _userRepository.GetUserByName("Dave Test");
-            user.UpdateName("Jane Test");
-
-            //assert
-            Assert.Equal("Jane Test", user.Name);
-        }
-
         private void CreateSuccessfulMoqs()
         {
-            //setup list to be passed into moq service
+            //setup list and accounts to be passed into moq service
             List<UserViewModel> users = new List<UserViewModel>();
 
             var user1 = new UserViewModel("Dave Test", true);

@@ -20,10 +20,6 @@ namespace UnitTests
             MockServiceProvider.Setup(x => x.GetService(typeof(IUserRepository))).Returns(MockServiceUserRepository.Object);
 
             MockServiceUserRepository.Setup(x => x.GetAllUsers()).Returns(users);
-
-            MockServiceUserRepository.Setup(x => x.GetUserByName("Dave Test")).Returns(users.Find(x => x.Name == "Dave Test"));
-
-            MockServiceUserRepository.Setup(x => x.GetUserByName("Jane Test")).Returns(users.Find(x => x.Name == "Jane Test"));
         }
     }
 }
