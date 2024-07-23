@@ -174,5 +174,10 @@ namespace DebuggingAndRefactoringTask1
 
             ShowAccountInterfaceHome();
         }
+
+        public void AccountTransfer()
+        {
+
+        }
     }
 }
