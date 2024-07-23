@@ -28,15 +28,19 @@ namespace DebuggingAndRefactoringTask1
 
             keyCommands["1"] = () => CreateAccount();
             keyCommands["2"] = () => DepositMoney();
-            keyCommands["3"] = () => DepositMoney();
+            keyCommands["3"] = () => WithdrawMoney();
             keyCommands["4"] = () => DisplayAccountDetails();
+            keyCommands["5"] = () => ViewTransactions();
+            keyCommands["6"] = () => AccountTransfer();
 
             Console.WriteLine("--[ Home ]--");
             Console.WriteLine("1. Add Account");
             Console.WriteLine("2. Deposit Money");
             Console.WriteLine("3. Withdraw Money");
             Console.WriteLine("4. Display Account Details");
-            //Console.WriteLine("5. Exit");
+            Console.WriteLine("5. View Account Transactions");
+            Console.WriteLine("6. Account Transfer");
+            //Console.WriteLine("6. Exit");
             Console.WriteLine("-------------");
             Console.WriteLine();
 
@@ -133,9 +137,9 @@ namespace DebuggingAndRefactoringTask1
                 Console.WriteLine("Enter Amount to Withdraw:");
                 double amount = double.Parse(Console.ReadLine());
 
-                if (amount > accountResult.Balance) 
+                if (amount <= accountResult.Balance) 
                 {
-                    accountResult.Balance -= amount;
+                    accountResult.MakeWithdrawal(amount);
                     Console.WriteLine("Withdrawal successful.");
                 }
                 else
@@ -145,6 +149,74 @@ namespace DebuggingAndRefactoringTask1
             }
 
             ShowAccountInterfaceHome();
+        }
+
+        public void ViewTransactions()
+        {
+            Console.WriteLine("Enter Account ID:");
+            string id = Console.ReadLine();
+
+            Account accountResult = _accountRepository.GetAccountById(id);
+
+            if (accountResult is null)
+            {
+                Console.WriteLine("No Such account found.");
+            }
+            else
+            {
+                Console.WriteLine($"Row ||        Date         ||   Event   ||   Value   || Balance  ");
+                for (var i = 0;i < accountResult.Transactions.Count(); i++)
+                {
+                    Transaction row = accountResult.Transactions[i];
+                    Console.WriteLine($"{i}   || {row.Date} || {row.Event} || {row.Value} || {row.Balance} ");
+                }
+                Console.WriteLine("---[ End of transactions ] --");
+                Console.WriteLine();
+            }
+
+            ShowAccountInterfaceHome();
+        }
+
+        public void AccountTransfer()
+        {
+            Console.WriteLine("Enter Origin Account ID:");
+            string originId = Console.ReadLine();
+
+            Account originAccount = _accountRepository.GetAccountById(originId);
+
+            if(originAccount == null) 
+            {
+                Console.WriteLine("Origin account not found.");
+                return;
+            }
+
+            Console.WriteLine("Enter Destination Account ID:");
+            string destinationId = Console.ReadLine();
+
+            Account destinationAccount = _accountRepository.GetAccountById(destinationId);
+
+            if (destinationAccount == null)
+            {
+                Console.WriteLine("Destination account not found.");
+                return;
+            }
+
+            Console.WriteLine("Enter Amount to Transfer:");
+            double amount = double.Parse(Console.ReadLine());
+
+            if (amount <= originAccount.Balance)
+            {
+                originAccount.MakeWithdrawal(amount, "Transfer Withdrawal");
+                destinationAccount.MakeDeposit(amount, "Transfer Deposit");
+                Console.WriteLine("Transfer successful.");
+            }
+            else
+            {
+                Console.WriteLine("Insufficient balance.");
+            }
+
+            ShowAccountInterfaceHome();
+
         }
     }
 }

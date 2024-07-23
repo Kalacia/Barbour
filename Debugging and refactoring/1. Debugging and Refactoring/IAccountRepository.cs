@@ -5,6 +5,6 @@
         public List<Account> GetAllAccounts();
         public void InsertAccount(Account account);
         public string GetNewAccountId();
-        public Account GetAccountById(string id);
+        public Account GetAccountById(string accountId);
     }
 }
