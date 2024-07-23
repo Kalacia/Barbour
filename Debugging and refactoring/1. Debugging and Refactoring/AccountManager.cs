@@ -28,15 +28,17 @@ namespace DebuggingAndRefactoringTask1
 
             keyCommands["1"] = () => CreateAccount();
             keyCommands["2"] = () => DepositMoney();
-            keyCommands["3"] = () => DepositMoney();
+            keyCommands["3"] = () => WithdrawMoney();
             keyCommands["4"] = () => DisplayAccountDetails();
+            keyCommands["5"] = () => ViewTransactions();
 
             Console.WriteLine("--[ Home ]--");
             Console.WriteLine("1. Add Account");
             Console.WriteLine("2. Deposit Money");
             Console.WriteLine("3. Withdraw Money");
             Console.WriteLine("4. Display Account Details");
-            //Console.WriteLine("5. Exit");
+            Console.WriteLine("5. View Account Transactions");
+            //Console.WriteLine("6. Exit");
             Console.WriteLine("-------------");
             Console.WriteLine();
 
@@ -133,7 +135,7 @@ namespace DebuggingAndRefactoringTask1
                 Console.WriteLine("Enter Amount to Withdraw:");
                 double amount = double.Parse(Console.ReadLine());
 
-                if (amount > accountResult.Balance) 
+                if (amount <= accountResult.Balance) 
                 {
                     accountResult.MakeWithdrawal(amount);
                     Console.WriteLine("Withdrawal successful.");
@@ -142,6 +144,32 @@ namespace DebuggingAndRefactoringTask1
                 {
                     Console.WriteLine("Insufficient balance.");
                 }
+            }
+
+            ShowAccountInterfaceHome();
+        }
+
+        public void ViewTransactions()
+        {
+            Console.WriteLine("Enter Account ID:");
+            string id = Console.ReadLine();
+
+            Account accountResult = _accountRepository.GetAccountById(id);
+
+            if (accountResult is null)
+            {
+                Console.WriteLine("No Such account found.");
+            }
+            else
+            {
+                Console.WriteLine($"Row ||        Date         ||   Event   ||   Value   || Balance  ");
+                for (var i = 0;i < accountResult.Transactions.Count(); i++)
+                {
+                    Transaction row = accountResult.Transactions[i];
+                    Console.WriteLine($"{i}   || {row.Date} || {row.Event} || {row.Value} || {row.Balance} ");
+                }
+                Console.WriteLine("---[ End of transactions ] --");
+                Console.WriteLine();
             }
 
             ShowAccountInterfaceHome();
