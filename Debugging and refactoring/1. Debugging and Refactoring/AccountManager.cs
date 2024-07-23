@@ -135,7 +135,7 @@ namespace DebuggingAndRefactoringTask1
 
                 if (amount > accountResult.Balance) 
                 {
-                    accountResult.Balance -= amount;
+                    accountResult.MakeWithdrawal(amount);
                     Console.WriteLine("Withdrawal successful.");
                 }
                 else

@@ -19,5 +19,10 @@ namespace DebuggingAndRefactoringTask1
         {
             Balance += amount;
         }
+
+        public void MakeWithdrawal(double amount)
+        {
+            Balance -= amount;
+        }
     }
 }
