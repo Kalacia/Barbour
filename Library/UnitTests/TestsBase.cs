@@ -1,6 +1,7 @@
 ﻿using Library.Models;
 using Library.Repositories;
 using Moq;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace UnitTests
 {
@@ -29,13 +30,17 @@ namespace UnitTests
             MockServiceUserRepository.Setup(x => x.GetUserByName("Jane Test")).Returns(users.Find(x => x.Name == "Jane Test"));
         }
 
-        protected void SetupSuccessfulBookMocks(List<Book> books)
+        protected void SetupSuccessfulBookMocks(List<Book> books, Book book)
         {
             MockServiceProvider.Setup(x => x.GetService(typeof(IBookRepository))).Returns(MockServiceBookRepository.Object);
 
-            MockServiceBookRepository.Setup(x => x.GetAllBooks()).Returns(books);
+            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780866118705")).Returns(books.Find(x => x.ISBN == "9780866118705"));
 
-            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780866118705")).Returns(books[0]);
+            MockServiceBookRepository.Setup(x => x.AddBook(book));
+
+            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780786965625")).Returns(book);
+
+            MockServiceBookRepository.Setup(x => x.GetAllBooks()).Returns(books);
         }
     }
 }

@@ -22,5 +22,10 @@ namespace Library.Repositories
             var book = _books.Find(x => x.ISBN == ISBN);
             return book;
         }
+
+        public void AddBook(Book book) 
+        {
+            _books.Add(book);
+        }
     }
 }

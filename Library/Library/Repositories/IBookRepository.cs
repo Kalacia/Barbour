@@ -7,5 +7,6 @@ namespace Library.Repositories
 
         public List<Book> GetAllBooks();
         public Book GetBookByISBN(string ISBN);
+        public void AddBook(Book book);
     }
 }

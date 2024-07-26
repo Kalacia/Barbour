@@ -1,5 +1,6 @@
 ﻿using Library.Models;
 using Library.Repositories;
+using System.Dynamic;
 
 namespace UnitTests
 {
@@ -35,14 +36,35 @@ namespace UnitTests
             Assert.Equal("9780866118705",book.ISBN);
         }
 
+        [Fact]
+        public void BookShouldbeAddableToRepo()
+        {
+            //arrange
+            CreateSuccessfulMoqs();
+
+            var bookAdd = new Book("9780786965625") //DnD 5th ed, dm guide
+            {
+                Title = "D&D Dungeon Master’s Guide (Dungeons & Dragons Core Rulebook)",
+                Author = "Wizards RPG Team",
+                AvailabilityStatus = true
+            };
+
+            //act
+            _bookRepository.AddBook(bookAdd);
+
+            var book = _bookRepository.GetBookByISBN("9780786965625");
+
+            //assert
+            Assert.IsType<Book>(book);            
+            Assert.Equal("9780786965625", book.ISBN);
+        }
+
         private void CreateSuccessfulMoqs()
         {
             //setup list to be passed into moq service
             List<Book> books = new List<Book>();
 
-            var ISBN = "9780866118705"; //war of the worlds
-
-            var book1 = new Book(ISBN)
+            var book1 = new Book("9780866118705") //war of the worlds
             {
                 Title = "War of the worlds",
                 Author = "H.G Wells",
@@ -51,8 +73,15 @@ namespace UnitTests
 
             books.Add(book1);
 
+            var bookAdd = new Book("9780786965625") //DnD 5th ed, dm guide
+            {
+                Title = "D&D Dungeon Master’s Guide (Dungeons & Dragons Core Rulebook)",
+                Author = "Wizards RPG Team",
+                AvailabilityStatus = true
+            };
+
             //create moq services
-            SetupSuccessfulBookMocks(books);
+            SetupSuccessfulBookMocks(books, bookAdd);
 
             _bookRepository = MockServiceBookRepository.Object;
         }
