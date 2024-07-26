@@ -1,4 +1,3 @@
-using Library.Models;
 using Library.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

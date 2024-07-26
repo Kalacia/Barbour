@@ -12,7 +12,6 @@
             <th>Title</th>
             <th>Author</th>
             <th>Available</th>
-            <th>CheckedOut By</th>
             </thead>
             <tbody>
                 @foreach (var book in Model)
@@ -22,7 +21,6 @@
                         <td>@book.Title</td>
                         <td>@book.Author</td>
                         <td>@book.AvailabilityStatus</td>
-                        <td>@book.CheckedOutBy.Name</td>
                     </tr>
                 }
             </tbody>
