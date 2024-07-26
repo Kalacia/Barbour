@@ -8,11 +8,14 @@ namespace UnitTests
     {
         protected readonly Mock<IServiceProvider> MockServiceProvider;
         protected readonly Mock<IUserRepository> MockServiceUserRepository;
+        protected readonly Mock<IBookRepository> MockServiceBookRepository;
+
 
         protected TestsBase()
         {
             MockServiceProvider = new Mock<IServiceProvider>();
             MockServiceUserRepository = new Mock<IUserRepository>();
+            MockServiceBookRepository = new Mock<IBookRepository>();
         }
 
         protected void SetupSuccessfulUserMocks(List<UserViewModel> users)
@@ -24,6 +27,13 @@ namespace UnitTests
             MockServiceUserRepository.Setup(x => x.GetUserByName("Dave Test")).Returns(users.Find(x => x.Name == "Dave Test"));
 
             MockServiceUserRepository.Setup(x => x.GetUserByName("Jane Test")).Returns(users.Find(x => x.Name == "Jane Test"));
+        }
+
+        protected void SetupSuccessfulBookMocks(List<Book> books)
+        {
+            MockServiceProvider.Setup(x => x.GetService(typeof(IBookRepository))).Returns(MockServiceBookRepository.Object);
+
+            MockServiceBookRepository.Setup(x => x.GetAllBooks()).Returns(books);
         }
     }
 }
