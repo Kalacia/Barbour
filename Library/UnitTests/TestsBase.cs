@@ -35,14 +35,12 @@ namespace UnitTests
             MockServiceProvider.Setup(x => x.GetService(typeof(IBookRepository))).Returns(MockServiceBookRepository.Object);
 
             MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780866118705")).Returns(books.Find(x => x.ISBN == "9780866118705"));
-            
+            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9781785818493")).Returns(books.Find(x => x.ISBN == "9"));
+            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780786965625")).Returns(book);
+
             MockServiceBookRepository.Setup(x => x.AddBook(book));
 
             MockServiceBookRepository.Setup(x => x.DeleteBook(books[1]));
-
-            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9781785818493")).Returns(books.Find(x => x.ISBN == "9"));
-
-            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780786965625")).Returns(book);
 
             MockServiceBookRepository.Setup(x => x.GetAllBooks()).Returns(books);
         }

@@ -12,6 +12,14 @@
         public Book(string isbn) 
         {
             ISBN = isbn;
+            History = new List<History>();
+        }
+
+        public void CheckOut()
+        {
+            var history = new History("Withdraw");
+            History.Add(history);
+            AvailabilityStatus = false;
         }
     }
 }

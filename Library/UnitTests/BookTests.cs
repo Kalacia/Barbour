@@ -70,9 +70,24 @@ namespace UnitTests
             _bookRepository.DeleteBook(book);
             var bookResponse = _bookRepository.GetBookByISBN("9781785818493");
 
-
             //assert
             Assert.Null(bookResponse);
+        }
+
+        [Fact]
+        public void BookHistoryEventShouldbeReadable()
+        {
+            //arrange
+            CreateSuccessfulMoqs();
+
+            //act
+            var book = _bookRepository.GetBookByISBN("9780866118705");
+            book.CheckOut();
+
+            //assert
+            Assert.IsType<History>(book.History[0]);
+            Assert.Equal("Withdraw",book.History[0].Description);
+            Assert.False(book.AvailabilityStatus);
         }
 
         private void CreateSuccessfulMoqs()
@@ -109,7 +124,5 @@ namespace UnitTests
 
             _bookRepository = MockServiceBookRepository.Object;
         }
-
-
     }
 }
