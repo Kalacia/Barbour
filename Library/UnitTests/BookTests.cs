@@ -82,12 +82,20 @@ namespace UnitTests
 
             //act
             var book = _bookRepository.GetBookByISBN("9780866118705");
-            book.CheckOut();
+            var user = CreateUser();
+            book.CheckOut(user);
 
             //assert
             Assert.IsType<History>(book.History[0]);
-            Assert.Equal("Withdraw",book.History[0].Description);
+            Assert.Equal("CheckOut", book.History[0].Description);
             Assert.False(book.AvailabilityStatus);
+            Assert.IsType<UserViewModel>(book.CheckedOutBy);
+        }
+
+        private UserViewModel CreateUser()
+        {
+            UserViewModel user = new UserViewModel("Susan Mc Test", true);
+            return user;
         }
 
         private void CreateSuccessfulMoqs()

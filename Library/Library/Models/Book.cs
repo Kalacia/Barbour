@@ -15,11 +15,20 @@
             History = new List<History>();
         }
 
-        public void CheckOut()
+        public void CheckOut(UserViewModel user)
         {
-            var history = new History("Withdraw");
+            var history = new History("CheckOut");
             History.Add(history);
             AvailabilityStatus = false;
+            CheckedOutBy = user;
+        }
+
+        public void CheckIn()
+        {
+            var history = new History("CheckIn");
+            History.Add(history);
+            AvailabilityStatus = true;
+            CheckedOutBy = null;
         }
     }
 }
