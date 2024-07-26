@@ -1,0 +1,31 @@
+﻿@model List<Book>
+
+<div class="container_main row">
+    <div>
+        
+    </div>
+
+    <div class="container_output row">
+        <table class="table">
+            <thead>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Available</th>
+            <th>CheckedOut By</th>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.ISBN</td>
+                        <td>@book.Title</td>
+                        <td>@book.Author</td>
+                        <td>@book.AvailabilityStatus</td>
+                        <td>@book.CheckedOutBy.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

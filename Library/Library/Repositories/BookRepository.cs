@@ -2,7 +2,7 @@
 
 namespace Library.Repositories
 {
-    public class BookRepository
+    public class BookRepository : IBookRepository
     {
 
         private List<Book> _books { get; set; }
