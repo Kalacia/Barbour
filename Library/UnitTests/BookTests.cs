@@ -55,8 +55,24 @@ namespace UnitTests
             var book = _bookRepository.GetBookByISBN("9780786965625");
 
             //assert
-            Assert.IsType<Book>(book);            
+            Assert.IsType<Book>(book);
             Assert.Equal("9780786965625", book.ISBN);
+        }
+
+        [Fact]
+        public void BookShouldbeRemoveableFromRepo()
+        {
+            //arrange
+            CreateSuccessfulMoqs();
+
+            //act
+            var book = _bookRepository.GetBookByISBN("9781785818493");
+            _bookRepository.DeleteBook(book);
+            var bookResponse = _bookRepository.GetBookByISBN("9781785818493");
+
+
+            //assert
+            Assert.Null(bookResponse);
         }
 
         private void CreateSuccessfulMoqs()
@@ -71,7 +87,15 @@ namespace UnitTests
                 AvailabilityStatus = false
             };
 
+            var book2 = new Book("9781785818493") //warhammer 40k rulebook 
+            {
+                Title = "WARHAMMER 40000 RULEBOOK (ENGLISH)",
+                Author = "Games Workshop",
+                AvailabilityStatus = true
+            };
+
             books.Add(book1);
+            books.Add(book2);
 
             var bookAdd = new Book("9780786965625") //DnD 5th ed, dm guide
             {

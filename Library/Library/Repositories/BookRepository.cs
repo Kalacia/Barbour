@@ -19,13 +19,18 @@ namespace Library.Repositories
 
         public Book GetBookByISBN(string ISBN)
         {
-            var book = _books.Find(x => x.ISBN == ISBN);
+            Book book = _books.Find(x => x.ISBN == ISBN);
             return book;
         }
 
         public void AddBook(Book book) 
         {
             _books.Add(book);
+        }
+
+        public void DeleteBook(Book book)
+        {
+            _books.Remove(book);
         }
     }
 }
