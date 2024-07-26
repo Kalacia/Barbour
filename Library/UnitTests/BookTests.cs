@@ -75,13 +75,13 @@ namespace UnitTests
         }
 
         [Fact]
-        public void BookHistoryEventShouldbeReadable()
+        public void BookCheckOutShouldbeReadable()
         {
             //arrange
             CreateSuccessfulMoqs();
 
             //act
-            var book = _bookRepository.GetBookByISBN("9780866118705");
+            var book = _bookRepository.GetBookByISBN("9780786965625");//WH40k
             var user = CreateUser();
             book.CheckOut(user);
 
@@ -90,6 +90,24 @@ namespace UnitTests
             Assert.Equal("CheckOut", book.History[0].Description);
             Assert.False(book.AvailabilityStatus);
             Assert.IsType<UserViewModel>(book.CheckedOutBy);
+        }
+
+        [Fact]
+        public void BookCheckInShouldbeReadable()
+        {
+            //arrange
+            CreateSuccessfulMoqs();
+
+            //act
+            var book = _bookRepository.GetBookByISBN("9780866118705");//war of the worlds
+            var user = CreateUser();
+            book.CheckIn();
+
+            //assert
+            Assert.IsType<History>(book.History[0]);
+            Assert.Equal("CheckIn", book.History[0].Description);
+            Assert.True(book.AvailabilityStatus);
+            Assert.Null(book.CheckedOutBy);
         }
 
         private UserViewModel CreateUser()
