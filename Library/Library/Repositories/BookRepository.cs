@@ -16,5 +16,11 @@ namespace Library.Repositories
         {
             return _books;
         }
+
+        public Book GetBookByISBN(string ISBN)
+        {
+            var book = _books.Find(x => x.ISBN == ISBN);
+            return book;
+        }
     }
 }

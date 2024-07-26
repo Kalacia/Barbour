@@ -2,31 +2,16 @@
 {
     public class Book
     {
-        private string _ISBN { get; set; }
-        private string _title { get; set; }
-        private string _author{ get; set; }
-        private bool _availabilityStatus { get; set; }
-        private UserViewModel _checkedOutBy { get; set; }
-        private List<History> _history { get; set; }
+        public string ISBN { get; set; }
+        public string Title { get; set; }
+        public string Author{ get; set; }
+        public bool AvailabilityStatus { get; set; }
+        public UserViewModel CheckedOutBy { get; set; }
+        public List<History> History { get; set; }
 
-        public void SetISBN(string isbn)
+        public Book(string isbn) 
         {
-            _ISBN = isbn;
-        }
-
-        public void SetTitle(string title)
-        {
-            _title = title;
-        }
-
-        public void SetAuthor(string author)
-        {
-            _author = author;
-        }
-
-        public void SetAvailability(bool availability)
-        {
-            _availabilityStatus = availability;
+            ISBN = isbn;
         }
     }
 }

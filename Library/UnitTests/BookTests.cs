@@ -8,7 +8,7 @@ namespace UnitTests
         private IBookRepository _bookRepository;
 
         [Fact]
-        public void BookShouldBeRetreiveableFromRepo()
+        public void BookShouldBeExistInRepo()
         {
             //arrange
             CreateSuccessfulMoqs();
@@ -21,22 +21,33 @@ namespace UnitTests
             Assert.IsType<Book>(book);
         }
 
+        [Fact]
+        public void BookShouldBeRetreiveableFromRepoByISBN()
+        {
+            //arrange
+            CreateSuccessfulMoqs();
+
+            //act
+            var book = _bookRepository.GetBookByISBN("9780866118705");
+
+            //assert
+            Assert.IsType<Book>(book);
+            Assert.Equal("9780866118705",book.ISBN);
+        }
+
         private void CreateSuccessfulMoqs()
         {
             //setup list to be passed into moq service
             List<Book> books = new List<Book>();
 
             var ISBN = "9780866118705"; //war of the worlds
-            var bookTitle = "War of the worlds";
-            var author = "H.G Wells";
-            var availabilityStatus = false;
 
-            var book1 = new Book();
-
-            book1.SetISBN(ISBN);
-            book1.SetTitle(bookTitle);
-            book1.SetAuthor(author);
-            book1.SetAvailability(availabilityStatus);
+            var book1 = new Book(ISBN)
+            {
+                Title = "War of the worlds",
+                Author = "H.G Wells",
+                AvailabilityStatus = false
+            };
 
             books.Add(book1);
 

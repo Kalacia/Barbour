@@ -5,6 +5,7 @@ namespace Library.Repositories
     public interface IBookRepository
     {
 
-        List<Book> GetAllBooks();
+        public List<Book> GetAllBooks();
+        public Book GetBookByISBN(string ISBN);
     }
 }
