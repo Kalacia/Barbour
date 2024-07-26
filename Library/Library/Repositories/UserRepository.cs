@@ -2,7 +2,7 @@
 
 namespace Library.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         public List<UserViewModel> Users { get; set; }
 
