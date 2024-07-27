@@ -1,7 +1,6 @@
 ﻿using Library.Models;
 using Library.Repositories;
 using Moq;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace UnitTests
 {
@@ -37,6 +36,9 @@ namespace UnitTests
             MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780866118705")).Returns(books.Find(x => x.ISBN == "9780866118705"));
             MockServiceBookRepository.Setup(x => x.GetBookByISBN("9781785818493")).Returns(books.Find(x => x.ISBN == "9"));
             MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780786965625")).Returns(book);
+            
+            MockServiceBookRepository.Setup(x => x.GetBookByTitle("War of the worlds")).Returns(
+                books.Where(x => x.Title!.ToUpper().Contains("War of the worlds".ToUpper())).ToList());
 
             MockServiceBookRepository.Setup(x => x.AddBook(book));
 

@@ -1,5 +1,7 @@
-﻿using Library.Repositories;
+﻿using Library.Models;
+using Library.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Library.Controllers
 {
@@ -16,11 +18,16 @@ namespace Library.Controllers
             return View();
         }
         
-        public IActionResult ViewAllBooks()
+        public IActionResult Books(string bookTitle)
         {
-            var books = _bookRepository.GetAllBooks();
+            var result = _bookRepository.GetAllBooks();
 
-            return View(books);
+            if (!String.IsNullOrEmpty(bookTitle))
+            {
+                result = _bookRepository.GetBookByTitle(bookTitle);                
+            }
+
+            return View(result);
         }
     }
 }

@@ -24,6 +24,13 @@ namespace Library.Repositories
             return book;
         }
 
+        public List<Book> GetBookByTitle(string bookTitle)
+        {
+            var books = _books.Where(x => x.Title!.ToUpper().Contains(bookTitle.ToUpper())).ToList();
+
+            return books;
+        }
+
         public void AddBook(Book book) 
         {
             _books.Add(book);

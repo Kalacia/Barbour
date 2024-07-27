@@ -1,8 +1,13 @@
 ﻿@model List<Book>
 
 <div class="container_main row">
-    <div>
-        
+    <div class="container_search">
+        <form asp-controller="Library" asp-action="Books">
+            <p>
+                Title: <input type="text" name="bookTitle" />
+                <input type="submit" value="Filter" />
+            </p>
+        </form>
     </div>
 
     <div class="container_output row">

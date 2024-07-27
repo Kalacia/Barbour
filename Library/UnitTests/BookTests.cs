@@ -37,6 +37,20 @@ namespace UnitTests
         }
 
         [Fact]
+        public void BookShouldBeRetreiveableFromRepoByTitle()
+        {
+            //arrange
+            CreateSuccessfulMoqs();
+
+            //act
+            var book = _bookRepository.GetBookByTitle("War of the worlds");
+
+            //assert
+            Assert.IsType<Book>(book[0]);
+            Assert.Equal("War of the worlds", book[0].Title);
+        }
+
+        [Fact]
         public void BookShouldbeAddableToRepo()
         {
             //arrange
