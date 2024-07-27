@@ -19,7 +19,7 @@ namespace UnitTests
             MockServiceBookRepository = new Mock<IBookRepository>();
         }
 
-        protected void SetupSuccessfulUserMocks(List<UserViewModel> users)
+        protected void SetupSuccessfulUserMocks(List<User> users)
         {
             MockServiceProvider.Setup(x => x.GetService(typeof(IUserRepository))).Returns(MockServiceUserRepository.Object);
 

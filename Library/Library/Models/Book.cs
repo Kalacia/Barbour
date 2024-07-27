@@ -6,7 +6,7 @@
         public string Title { get; set; }
         public string Author{ get; set; }
         public bool AvailabilityStatus { get; set; }
-        public UserViewModel CheckedOutBy { get; set; }
+        public User CheckedOutBy { get; set; }
         public List<History> History { get; set; }
 
         public Book(string isbn) 
@@ -15,7 +15,7 @@
             History = new List<History>();
         }
 
-        public void CheckOut(UserViewModel user)
+        public void CheckOut(User user)
         {
             var history = new History("CheckOut");
             History.Add(history);

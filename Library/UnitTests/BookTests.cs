@@ -89,7 +89,7 @@ namespace UnitTests
             Assert.IsType<History>(book.History[0]);
             Assert.Equal("CheckOut", book.History[0].Description);
             Assert.False(book.AvailabilityStatus);
-            Assert.IsType<UserViewModel>(book.CheckedOutBy);
+            Assert.IsType<User>(book.CheckedOutBy);
         }
 
         [Fact]
@@ -110,9 +110,9 @@ namespace UnitTests
             Assert.Null(book.CheckedOutBy);
         }
 
-        private UserViewModel CreateUser()
+        private User CreateUser()
         {
-            UserViewModel user = new UserViewModel("Susan Mc Test", true);
+            User user = new User("Susan Mc Test", true);
             return user;
         }
 
