@@ -1,0 +1,24 @@
+﻿@model List<User>
+
+<div class="container_main row">
+    <div>
+    </div>
+
+    <div class="container_output row">
+        <table class="table">
+            <thead>
+            <th>Name</th>
+            <th>Active</th>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Name</td>
+                        <td>@user.Active</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

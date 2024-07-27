@@ -17,7 +17,7 @@ namespace UnitTests
             var repo = _userRepository.GetAllUsers();
 
             //assert
-            Assert.IsType<UserViewModel>(repo[0]);
+            Assert.IsType<User>(repo[0]);
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace UnitTests
             var user = _userRepository.GetUserByName("Dave Test");
 
             //assert
-            Assert.IsType<UserViewModel>(user);
+            Assert.IsType<User>(user);
             Assert.Equal("Dave Test", user.Name);
         }
 
@@ -51,9 +51,9 @@ namespace UnitTests
         private void CreateSuccessfulMoqs()
         {
             //setup list to be passed into moq service
-            List<UserViewModel> users = new List<UserViewModel>();
+            List<User> users = new List<User>();
 
-            var user1 = new UserViewModel("Dave Test", true);
+            var user1 = new User("Dave Test", true);
 
             users.Add(user1);
 
