@@ -3,10 +3,11 @@
 
 # Solution 1 - Bank account C#
 **Console APP**
-Unit tests
+## Unit tests
  Unit tests are currently there for the core CRUD operations into the repository. Moqed as a service.
- Fringe cases are not yet implemented
-Fringe cases, Validation and error checking
+
+## Outstanding work
+Fringe cases, Validation and error checking. As i chose to focus on the second solution, as the validation work there would showcase my skills.
 
 # Solution 2 - Library managemednt C# dot net 8, Html and Javascript
 **MVC app**
