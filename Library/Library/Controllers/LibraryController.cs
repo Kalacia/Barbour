@@ -1,7 +1,6 @@
 ﻿using Library.Models;
 using Library.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Library.Controllers
 {
@@ -63,7 +62,7 @@ namespace Library.Controllers
             }
         }
 
-        // POST : Book/Delete
+        // GET : Book/Delete
         [HttpGet]
         public IActionResult BookDeleteView(string isbn)
         {
@@ -93,7 +92,6 @@ namespace Library.Controllers
                 ViewData["Result"] = "Failure:" + ex;
                 return View();
             }
-
         }
 
         [HttpGet]
@@ -137,8 +135,6 @@ namespace Library.Controllers
             }
         }
 
-
-        // GET : Book/GetAll
         [HttpGet]
         public IActionResult BookCheckOut(string isbn)
         {

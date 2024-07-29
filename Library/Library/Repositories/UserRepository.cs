@@ -4,28 +4,34 @@ namespace Library.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public List<User> Users { get; set; }
+        private readonly List<User> _users;
 
         public UserRepository() 
         {
-            Users = new List<User>();
+            _users = new List<User>();
             SetupUsers();
         }
         
         public void AddUser(User user)
         {
-            Users.Add(user);
+            _users.Add(user);
         }
 
         public List<User> GetAllUsers()
         {
-            return Users;
+            return _users;
         }
 
         public User GetUserByName(string usersName) 
         {
-            User user = Users.Find(x => x.Name == usersName);
+            User user = _users.Find(x => x.Name == usersName);
             return user;
+        }
+
+        public void DeleteUser(string name)
+        {
+            var index = _users.FindIndex(x => x.Name == name);
+            _users.RemoveAt(index);
         }
 
         private void SetupUsers()
