@@ -4,10 +4,9 @@ namespace Library.Repositories
 {
     public interface IBookRepository
     {
-
         public List<Book> GetAllBooks();
         public Book GetBookByISBN(string isbn);
-        public void AddBook(Book book);
+        public void CreateBook(Book book);
         public void DeleteBook(Book book);
     }
 }

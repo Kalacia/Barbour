@@ -32,17 +32,17 @@ namespace UnitTests
 
         protected void SetupSuccessfulBookMocks(List<Book> books, Book book)
         {
-            MockServiceProvider.Setup(x => x.GetService(typeof(IBookRepository))).Returns(MockServiceBookRepository.Object);
+            MockServiceProvider.Setup(books => books.GetService(typeof(IBookRepository))).Returns(MockServiceBookRepository.Object);
 
-            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780866118705")).Returns(books.Find(x => x.ISBN == "9780866118705"));
-            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9781785818493")).Returns(books.Find(x => x.ISBN == "9"));
-            MockServiceBookRepository.Setup(x => x.GetBookByISBN("9780786965625")).Returns(book);
+            MockServiceBookRepository.Setup(books => books.GetBookByISBN("9780866118705")).Returns(books.Find(x => x.ISBN == "9780866118705"));
+            MockServiceBookRepository.Setup(books => books.GetBookByISBN("9781785818493")).Returns(books.Find(x => x.ISBN == "9"));
+            MockServiceBookRepository.Setup(books => books.GetBookByISBN("9780786965625")).Returns(book);
 
-            MockServiceBookRepository.Setup(x => x.AddBook(book));
+            MockServiceBookRepository.Setup(books => books.AddBook(book));
+            
+            //MockServiceBookRepository.Setup(books => books.DeleteBook(books[1]));
 
-            MockServiceBookRepository.Setup(x => x.DeleteBook(books[1]));
-
-            MockServiceBookRepository.Setup(x => x.GetAllBooks()).Returns(books);
+            MockServiceBookRepository.Setup(books => books.GetAllBooks()).Returns(books);
         }
     }
 }
