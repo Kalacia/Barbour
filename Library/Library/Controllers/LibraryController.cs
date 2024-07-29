@@ -35,15 +35,30 @@ namespace Library.Controllers
         [HttpPost]
         public IActionResult BookAdd([FromForm] Book book)
         {
-            _bookRepository.CreateBook(book);
+            //we need to check if the ISBN already exists
+            Book bookCheck = _bookRepository.GetBookByISBN(book.ISBN);
 
+            if (!String.IsNullOrEmpty(bookCheck.ISBN))
+            {
+                //if book already exists, show view with no changes made
+                return View();
+            }
+
+            _bookRepository.CreateBook(book);
             return View();
         }
 
         [HttpGet]
         public IActionResult BookDeleteView(string isbn)
         {
-            //Book book = _bookRepository.GetBookByISBN(isbn);
+            try
+            {
+
+            }
+            catch (Exception e)
+            {
+
+            }
             _bookRepository.DeleteBook(isbn);
             return View();
         }
