@@ -7,6 +7,7 @@ namespace Library.Controllers
     public class LibraryController : Controller
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IUserRepository _userRepository;
 
         public LibraryController(IServiceProvider serviceProvider)
         {
@@ -17,6 +18,9 @@ namespace Library.Controllers
 
             _bookRepository = serviceProvider.GetService<IBookRepository>() ??
                 throw new ArgumentNullException(nameof(_bookRepository));
+
+            _userRepository = serviceProvider.GetService<IUserRepository>() ??
+                throw new ArgumentNullException(nameof(_userRepository));
         }
 
         [HttpGet]
@@ -71,11 +75,42 @@ namespace Library.Controllers
             {
                 return View(ex);
             }
+
+            _bookRepository.DeleteBook(isbn);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult BookManage()
+        {
+            var books = _bookRepository.GetAllBooks();
+
+            return View(books);
+        }
+
+        [HttpGet]
+        public IActionResult BookCheck(string isbn)
+        {
+            var book = _bookRepository.GetBookByISBN(isbn);
+
+            return View(book);
+        }
+
+        [HttpGet]
+        public IActionResult BookCheckIn(string isbn)
+        {
+            var book = _bookRepository.GetBookByISBN(isbn);
+
+            //this is hardcoded, user dropdown TODO
+            var user = _userRepository.GetUserByName("Admin");
+            book.CheckIn(user);
+
+            return View();
         }
 
         // GET : Book/GetAll
         [HttpGet]
-        public IActionResult BookManage()
+        public IActionResult BookCheckOut(string isbn)
         {
             try
             {
@@ -88,6 +123,14 @@ namespace Library.Controllers
                 return View(ex);
             }
 
+
+            var book = _bookRepository.GetBookByISBN(isbn);
+
+            //this is hardcoded, user dropdown TODO
+            var user = _userRepository.GetUserByName("Admin");
+            book.CheckOut(user);
+
+            return View();
         }
     }
 }
