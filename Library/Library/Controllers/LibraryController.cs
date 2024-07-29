@@ -75,9 +75,6 @@ namespace Library.Controllers
             {
                 return View(ex);
             }
-
-            _bookRepository.DeleteBook(isbn);
-            return View();
         }
 
         [HttpGet]
@@ -99,14 +96,24 @@ namespace Library.Controllers
         [HttpGet]
         public IActionResult BookCheckIn(string isbn)
         {
-            var book = _bookRepository.GetBookByISBN(isbn);
+            try
+            {
+                var book = _bookRepository.GetBookByISBN(isbn);
 
-            //this is hardcoded, user dropdown TODO
-            var user = _userRepository.GetUserByName("Admin");
-            book.CheckIn(user);
+                //this is hardcoded, user dropdown TODO
+                var user = _userRepository.GetUserByName("Admin");
+                book.CheckIn(user);
 
-            return View();
+                ViewData["Result"] = "Success";
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewData["Result"] = ex;
+                return View();
+            }
         }
+
 
         // GET : Book/GetAll
         [HttpGet]
@@ -114,23 +121,21 @@ namespace Library.Controllers
         {
             try
             {
-                var books = _bookRepository.GetAllBooks();
+                var book = _bookRepository.GetBookByISBN(isbn);
 
-                return View(books);
+                //this is hardcoded, user dropdown TODO
+                var user = _userRepository.GetUserByName("Admin");
+                book.CheckOut(user);
+
+                ViewData["Result"] = "Success";
+                return View();
             }
-            catch (Exception ex)
+            catch(Exception ex) 
             {
-                return View(ex);
+                ViewData["Result"] = ex;
+                return View();
             }
 
-
-            var book = _bookRepository.GetBookByISBN(isbn);
-
-            //this is hardcoded, user dropdown TODO
-            var user = _userRepository.GetUserByName("Admin");
-            book.CheckOut(user);
-
-            return View();
         }
     }
 }
