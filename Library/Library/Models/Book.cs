@@ -22,15 +22,15 @@
 
         public void CheckOut(User user)
         {
-            var history = new History("CheckOut");
+            var history = new History("CheckOut", user);
             History.Add(history);
             AvailabilityStatus = false;
             CheckedOutBy = user;
         }
 
-        public void CheckIn()
+        public void CheckIn(User user)
         {
-            var history = new History("CheckIn");
+            var history = new History("CheckIn", user);
             History.Add(history);
             AvailabilityStatus = true;
             CheckedOutBy = null;

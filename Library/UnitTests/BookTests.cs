@@ -100,7 +100,7 @@ namespace UnitTests
             //act
             var book = _bookRepository.GetBookByISBN("9780866118705");//war of the worlds
             var user = CreateUser();
-            book.CheckIn();
+            book.CheckIn(user);
 
             //assert
             Assert.IsType<History>(book.History[0]);
