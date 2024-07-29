@@ -1,16 +1,17 @@
 ﻿using Library.Models;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Library.Repositories
 {
-    public sealed class BookRepository : IBookRepository
+    public class BookRepository : IBookRepository
     {
-
-        private List<Book> _books { get; set; }
+        private List<Book> _books;
 
         public BookRepository()
         {
             _books = new List<Book>();
-            SetupBooks();
+            //used to get initial data into the library. In the real world, this would likely be a database.
+            SetupBooks(); 
         }
 
         public List<Book> GetAllBooks()
@@ -24,14 +25,15 @@ namespace Library.Repositories
             return book;
         }
 
-        public void AddBook(Book book) 
+        public void CreateBook(Book book) 
         {
             _books.Add(book);
         }
 
-        public void DeleteBook(Book book)
+        public void DeleteBook(string isbn)
         {
-            _books.Remove(book);
+            var index = _books.FindIndex(x => x.ISBN == isbn);
+            _books.RemoveAt(index);
         }
 
         private void SetupBooks()
@@ -40,7 +42,7 @@ namespace Library.Repositories
             {
                 Title = "War of the worlds",
                 Author = "H.G Wells",
-                AvailabilityStatus = true
+                AvailabilityStatus = false
             };
 
             Book book2 = new Book("9781785818493") //warhammer 40k rulebook 
@@ -57,9 +59,9 @@ namespace Library.Repositories
                 AvailabilityStatus = true
             };
 
-            AddBook(book1);
-            AddBook(book2);
-            AddBook(book3);
+            CreateBook(book1);
+            CreateBook(book2);
+            CreateBook(book3);
         }
     }
 }

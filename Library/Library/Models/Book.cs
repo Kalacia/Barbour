@@ -15,6 +15,11 @@
             History = new List<History>();
         }
 
+        public Book() 
+        {
+            History = new List<History>();
+        }
+
         public void CheckOut(User user)
         {
             var history = new History("CheckOut");
