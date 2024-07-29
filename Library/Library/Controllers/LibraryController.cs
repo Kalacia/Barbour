@@ -1,6 +1,7 @@
 ﻿using Library.Models;
 using Library.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Library.Controllers
 {
@@ -75,43 +76,12 @@ namespace Library.Controllers
             {
                 return View(ex);
             }
-
-            _bookRepository.DeleteBook(isbn);
-            return View();
         }
 
         [HttpGet]
         public IActionResult BookManage()
         {
-            var books = _bookRepository.GetAllBooks();
 
-            return View(books);
-        }
-
-        [HttpGet]
-        public IActionResult BookCheck(string isbn)
-        {
-            var book = _bookRepository.GetBookByISBN(isbn);
-
-            return View(book);
-        }
-
-        [HttpGet]
-        public IActionResult BookCheckIn(string isbn)
-        {
-            var book = _bookRepository.GetBookByISBN(isbn);
-
-            //this is hardcoded, user dropdown TODO
-            var user = _userRepository.GetUserByName("Admin");
-            book.CheckIn(user);
-
-            return View();
-        }
-
-        // GET : Book/GetAll
-        [HttpGet]
-        public IActionResult BookCheckOut(string isbn)
-        {
             try
             {
                 var books = _bookRepository.GetAllBooks();
@@ -120,17 +90,81 @@ namespace Library.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex);
+                ViewData["Result"] = "Failure:" + ex;
+                return View();
             }
 
+        }
 
+        [HttpGet]
+        public IActionResult BookCheck(string isbn)
+        {
             var book = _bookRepository.GetBookByISBN(isbn);
 
-            //this is hardcoded, user dropdown TODO
-            var user = _userRepository.GetUserByName("Admin");
-            book.CheckOut(user);
+            if (book == null)
+            {
+                ViewData["Result"] = "Failure: Book does not exist";
+                return View();
+            }
 
-            return View();
+            return View(book);
+        }
+
+        [HttpGet]
+        public IActionResult BookCheckIn(string isbn)
+        {
+            try
+            {
+                var book = _bookRepository.GetBookByISBN(isbn);
+
+                if (book.AvailabilityStatus == true)
+                {
+                    ViewData["Result"] = "Failure: Book is already checked in";
+                    return View();
+                }
+
+                //this is hardcoded, user dropdown TODO
+                var user = _userRepository.GetUserByName("Admin");
+                book.CheckIn(user);
+
+                ViewData["Result"] = "Success: Book checked in";
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewData["Result"] = ex;
+                return View();
+            }
+        }
+
+
+        // GET : Book/GetAll
+        [HttpGet]
+        public IActionResult BookCheckOut(string isbn)
+        {
+            try
+            {
+                var book = _bookRepository.GetBookByISBN(isbn);
+
+                if (book == null || book.AvailabilityStatus == false)
+                {
+                    ViewData["Result"] = "Failure: Book isnt available";
+                    return View();
+                }
+
+                //this is hardcoded, user dropdown TODO
+                var user = _userRepository.GetUserByName("Admin");
+                book.CheckOut(user);
+
+                ViewData["Result"] = "Success";
+                return View();
+            }
+            catch(Exception ex) 
+            {
+                ViewData["Result"] = ex;
+                return View();
+            }
+
         }
     }
 }
