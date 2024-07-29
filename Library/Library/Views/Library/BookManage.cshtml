@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.AvailabilityStatus)
             </td>
             <td>
-                @Html.ActionLink("Checkout", "CheckoutBook", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Check", "BookCheck", new { isbn = item.ISBN }) |
                 @Html.ActionLink("Delete", "BookDeleteView", new { isbn=item.ISBN })
             </td>
         </tr>

@@ -1,6 +1,4 @@
 ﻿using Library.Models;
-using System.Xml.Linq;
-using System;
 
 namespace Library.Repositories
 {
@@ -32,13 +30,16 @@ namespace Library.Repositories
 
         private void SetupUsers()
         {
+
             User user1 = new User("Tony Stark", true);
             User user2 = new User("Hulk Hogan", true);
             User user3 = new User("Rusty Gates", true);
+            User user4 = new User("Admin", true)
 ;
             AddUser(user1);
             AddUser(user2);
             AddUser(user3);
+            AddUser(user4);
         }
     }
 }
