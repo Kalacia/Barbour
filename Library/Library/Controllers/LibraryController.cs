@@ -25,57 +25,69 @@ namespace Library.Controllers
             return View();
         }
 
+        // POST : Book/Create page
         [HttpGet]
         public IActionResult BookAddView() 
         {
             return View();
         }
 
-        // POST : Book/Create and AddBook
+        // POST : Book/Create action
         [HttpPost]
         public IActionResult BookAdd([FromForm] Book book)
         {
-            //we need to check if the ISBN already exists
-            Book bookCheck = _bookRepository.GetBookByISBN(book.ISBN);
-
-            if (!String.IsNullOrEmpty(bookCheck.ISBN))
+            try
             {
-                //if book already exists, show view with no changes made
+                //we need to check if the ISBN already exists
+                Book bookCheck = _bookRepository.GetBookByISBN(book.ISBN);
+
+                if (bookCheck != null)
+                {
+                    //if book already exists, show view with no changes made
+                    ViewData["Result"] = "Failure: ISBN already exists.";
+                    return View();
+                }
+
+                _bookRepository.CreateBook(book);
+                ViewData["Result"] = "Success";
                 return View();
             }
-
-            _bookRepository.CreateBook(book);
-            return View();
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
         }
 
+        // POST : Book/Delete
         [HttpGet]
         public IActionResult BookDeleteView(string isbn)
         {
             try
             {
-
+                _bookRepository.DeleteBook(isbn);
+                return View();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
+                return View(ex);
             }
-            _bookRepository.DeleteBook(isbn);
-            return View();
         }
 
-        [HttpPost]
-        public IActionResult BookDelete(Book book)
-        {
-            _bookRepository.DeleteBook(book.ISBN);
-            return View();
-        }
-
+        // GET : Book/GetAll
         [HttpGet]
         public IActionResult BookManage()
         {
-            var books = _bookRepository.GetAllBooks();
+            try
+            {
+                var books = _bookRepository.GetAllBooks();
 
-            return View(books);
+                return View(books);
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+
         }
     }
 }
