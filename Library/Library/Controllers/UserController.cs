@@ -7,9 +7,15 @@ namespace Library.Controllers
     {
         private readonly IUserRepository _userRepository;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IServiceProvider serviceProvider)
         {
-            _userRepository = userRepository;
+            if (serviceProvider == null)
+            {
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
+
+            _userRepository = serviceProvider.GetService<IUserRepository>() ??
+                throw new ArgumentNullException(nameof(_userRepository));
         }
 
         public IActionResult Index()
@@ -23,5 +29,7 @@ namespace Library.Controllers
 
             return View(users);
         }
+
+
     }
 }
