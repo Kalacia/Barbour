@@ -21,6 +21,9 @@
                 @Html.DisplayNameFor(model => model.Author)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.CheckedOutBy.Name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.AvailabilityStatus)
             </th>
             <th></th>
@@ -37,6 +40,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckedOutBy.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AvailabilityStatus)
