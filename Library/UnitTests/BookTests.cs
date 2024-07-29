@@ -66,8 +66,7 @@ namespace UnitTests
             CreateSuccessfulMoqs();
 
             //act
-            var book = _bookRepository.GetBookByISBN("9781785818493");
-            _bookRepository.DeleteBook(book);
+            _bookRepository.DeleteBook("9781785818493");
             var bookResponse = _bookRepository.GetBookByISBN("9781785818493");
 
             //assert
