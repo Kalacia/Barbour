@@ -13,6 +13,11 @@
             Active = active;
         }
 
+        public User()
+        {
+            Id = new Guid();
+        }
+
         public void UpdateName(string name)
         {
             Name = name.Trim();
