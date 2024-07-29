@@ -26,14 +26,6 @@ namespace Library.Controllers
         }
 
         [HttpGet]
-        public IActionResult ViewAllBooks()
-        {
-            var books = _bookRepository.GetAllBooks();
-
-            return View(books);
-        }
-
-        [HttpGet]
         public IActionResult BookAddView() 
         {
             return View();
@@ -46,6 +38,29 @@ namespace Library.Controllers
             _bookRepository.CreateBook(book);
 
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult BookDeleteView(string isbn)
+        {
+            //Book book = _bookRepository.GetBookByISBN(isbn);
+            _bookRepository.DeleteBook(isbn);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult BookDelete(Book book)
+        {
+            _bookRepository.DeleteBook(book.ISBN);
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult BookManage()
+        {
+            var books = _bookRepository.GetAllBooks();
+
+            return View(books);
         }
     }
 }

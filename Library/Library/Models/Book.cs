@@ -17,7 +17,7 @@
 
         public Book() 
         {
-        
+            History = new List<History>();
         }
 
         public void CheckOut(User user)

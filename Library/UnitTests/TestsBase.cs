@@ -38,7 +38,7 @@ namespace UnitTests
             MockServiceBookRepository.Setup(books => books.GetBookByISBN("9781785818493")).Returns(books.Find(x => x.ISBN == "9"));
             MockServiceBookRepository.Setup(books => books.GetBookByISBN("9780786965625")).Returns(book);
 
-            MockServiceBookRepository.Setup(books => books.AddBook(book));
+            MockServiceBookRepository.Setup(books => books.CreateBook(book));
             
             //MockServiceBookRepository.Setup(books => books.DeleteBook(books[1]));
 

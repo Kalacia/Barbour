@@ -50,7 +50,7 @@ namespace UnitTests
             };
 
             //act
-            _bookRepository.AddBook(bookAdd);
+            _bookRepository.CreateBook(bookAdd);
 
             var book = _bookRepository.GetBookByISBN("9780786965625");
 
